@@ -30,7 +30,6 @@ app.post("/api/signup", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
