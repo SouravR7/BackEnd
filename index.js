@@ -42,6 +42,7 @@ app.post("/api/login", async (req, res) => {
 
     res.json({
       id: user._id,
+      name: user.firstname,
     });
   } catch (err) {
     res.status(500).json({ err: err.message });
