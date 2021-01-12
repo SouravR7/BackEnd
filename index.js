@@ -27,7 +27,7 @@ app.post("/api/signup", async (req, res) => {
     const savedUser = await newUser.save();
     res.json(savedUser);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 });
 app.post("/api/login", async (req, res) => {
@@ -35,17 +35,17 @@ app.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await user_Collection.findOne({ email: email });
     if (!user) {
-      return res.status(400).json({ msg: "User account does not exists" });
+      return res.status(404).json({ msg: "User account does not exists" });
     }
     const isMatch = await user_Collection.findOne({ password: password });
-    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
+    if (!isMatch) return res.status(404).json({ msg: "Invalid credentials" });
 
     res.json({
       id: user._id,
       name: user.firstname,
     });
   } catch (err) {
-    res.status(500).json({ err: err.message });
+    res.status(400).json({ err: err.message });
   }
 });
 
